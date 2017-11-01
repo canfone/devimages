@@ -34,6 +34,20 @@ services:
     networks:
       - backend
 
+  workspace:
+    build:
+      context: ./workspace
+    volumes_from:
+      - applications
+    extra_hosts:
+      - dockerhost:${DOCKER_HOST_IP}
+    ports:
+      - ${WORKSPACE_SSH_PORT}:22
+    tty: true
+    networks:
+      - frontend
+      - backend
+
 networks:
   frontend:
   backend:
