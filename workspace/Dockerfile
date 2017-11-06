@@ -102,7 +102,7 @@ RUN echo "" >> ~/.bashrc && \
 RUN apt-get update && \
     apt-get install -y --force-yes php7.1-xdebug && \
     sed -i 's/^;//g' /etc/php/7.1/cli/conf.d/20-xdebug.ini && \
-    echo "alias phpunit='php -dzend_extension=xdebug.so /var/www/vendor/bin/phpunit'" >> ~/.bashrc \
+    echo "alias phpunit='php -dzend_extension=xdebug.so /var/www/vendor/bin/phpunit'" >> ~/.bashrc
 
 COPY ./xdebug.ini /etc/php/7.1/cli/conf.d/xdebug.ini
 
@@ -119,17 +119,17 @@ RUN curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.1/install.sh
         nvm install ${NODE_VERSION} && \
         nvm use ${NODE_VERSION} && \
         nvm alias ${NODE_VERSION} && \
-        npm install -g gulp bower vue-cli \
+        npm install -g gulp bower vue-cli
 
 RUN echo "" >> ~/.bashrc && \
     echo 'export NVM_DIR="$HOME/.nvm"' >> ~/.bashrc && \
-    echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> ~/.bashrc \
+    echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> ~/.bashrc 
 
 USER root
 
 RUN echo "" >> ~/.bashrc && \
     echo 'export NVM_DIR="/home/devuser/.nvm"' >> ~/.bashrc && \
-    echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> ~/.bashrc \
+    echo '[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh" # This loads nvm' >> ~/.bashrc 
 
 ENV PATH $PATH:$NVM_DIR/versions/node/v${NODE_VERSION}/bin
 
@@ -143,7 +143,7 @@ USER root
 RUN apt-get update \
     && apt-get -y install python python-pip python-dev build-essential  \
     && pip install --upgrade pip  \
-    && pip install --upgrade virtualenv \
+    && pip install --upgrade virtualenv 
 
 USER root
 RUN apt-get clean && \
