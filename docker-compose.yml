@@ -52,6 +52,15 @@ services:
       - frontend
       - backend
 
+  aws:
+    build:
+      context: ./aws
+    volumes_from:
+      - applications
+    depends_on:
+      - workspace
+    tty: true
+
 networks:
   frontend:
   backend:
