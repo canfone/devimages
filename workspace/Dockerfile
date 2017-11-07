@@ -141,9 +141,9 @@ RUN echo "" >> ~/.bashrc && \
 USER root
 
 RUN apt-get update \
-    && apt-get -y install python python-pip python-dev build-essential  \
-    && pip install --upgrade pip  \
-    && pip install --upgrade virtualenv 
+    && apt-get -y install python3 python3-pip python3-dev build-essential  \
+    && pip3 install --upgrade pip  \
+    && pip3 install --upgrade virtualenv 
 
 USER root
 RUN apt-get clean && \
