@@ -1,8 +1,9 @@
-FROM phusion/baseimage:latest
+FROM ubuntu:17.10
 
 MAINTAINER Cliff Richard Anfone <anfone.cliff@gmail.com>
 
 RUN DEBIAN_FRONTEND=noninteractive
+RUN apt-get clean && apt-get update && apt-get install -y locales
 RUN locale-gen en_US.UTF-8
 
 ENV LANGUAGE=en_US.UTF-8
@@ -140,10 +141,11 @@ RUN echo "" >> ~/.bashrc && \
 
 USER root
 
-RUN apt-get update \
-    && apt-get -y install python3 python3-pip python3-dev build-essential  \
-    && pip3 install --upgrade pip  \
-    && pip3 install --upgrade virtualenv 
+#RUN add-apt-repository ppa:jonathonf/python-3.6 \
+#    && apt-get update \
+#    && apt-get install python3.6 python3.6-dev build-essential \
+#    && pip install --upgrade pip \
+#    && pip install --upgrade virtualenv
 
 USER root
 RUN apt-get clean && \
