@@ -141,11 +141,10 @@ RUN echo "" >> ~/.bashrc && \
 
 USER root
 
-#RUN add-apt-repository ppa:jonathonf/python-3.6 \
-#    && apt-get update \
-#    && apt-get install python3.6 python3.6-dev build-essential \
-#    && pip install --upgrade pip \
-#    && pip install --upgrade virtualenv
+RUN apt-get update \
+    && apt-get install -y python3-pip build-essential \
+    && pip3 install --upgrade pip \
+    && pip3 install --upgrade virtualenv
 
 USER root
 RUN apt-get clean && \
