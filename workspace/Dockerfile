@@ -154,7 +154,7 @@ RUN pyenv rehash
 
 RUN git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
 
-#USER root
+USER root
 
 RUN apt-get update \
     && apt-get install -y python3-pip build-essential \
