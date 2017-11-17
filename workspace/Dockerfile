@@ -1,9 +1,9 @@
-FROM ubuntu:17.10
+FROM phusion/baseimage:latest
 
 MAINTAINER Cliff Richard Anfone <anfone.cliff@gmail.com>
 
 RUN DEBIAN_FRONTEND=noninteractive
-RUN apt-get clean && apt-get update && apt-get install -y locales
+#RUN apt-get clean && apt-get update && apt-get install -y locales
 RUN locale-gen en_US.UTF-8
 
 ENV LANGUAGE=en_US.UTF-8
@@ -48,6 +48,8 @@ RUN apt-get update && \
         vim \
         nano \
         postgresql-client \
+        zlib1g-dev \
+        bzip2 \
     && apt-get clean
 
 RUN curl -s http://getcomposer.org/installer | php && \
@@ -137,7 +139,22 @@ USER devuser
 RUN echo "" >> ~/.bashrc && \
     echo 'export PATH="/var/www/vendor/bin:$PATH"' >> ~/.bashrc
 
-USER root
+USER devuser
+WORKDIR /home/devuser
+
+RUN git clone git://github.com/yyuu/pyenv.git .pyenv
+
+ENV HOME  /home/devuser
+ENV PYENV_ROOT $HOME/.pyenv
+ENV PATH $PYENV_ROOT/shims:$PYENV_ROOT/bin:$PATH
+
+RUN pyenv install 3.6.3
+RUN pyenv global 3.6.3
+RUN pyenv rehash
+
+RUN git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
+
+#USER root
 
 RUN apt-get update \
     && apt-get install -y python3-pip build-essential \
