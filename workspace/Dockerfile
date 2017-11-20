@@ -3,7 +3,6 @@ FROM phusion/baseimage:latest
 MAINTAINER Cliff Richard Anfone <anfone.cliff@gmail.com>
 
 RUN DEBIAN_FRONTEND=noninteractive
-#RUN apt-get clean && apt-get update && apt-get install -y locales
 RUN locale-gen en_US.UTF-8
 
 ENV LANGUAGE=en_US.UTF-8
@@ -50,6 +49,7 @@ RUN apt-get update && \
         postgresql-client \
         zlib1g-dev \
         bzip2 \
+        libbz2-dev \
     && apt-get clean
 
 RUN curl -s http://getcomposer.org/installer | php && \
@@ -140,8 +140,8 @@ RUN echo "" >> ~/.bashrc && \
     echo 'export PATH="/var/www/vendor/bin:$PATH"' >> ~/.bashrc
 
 USER devuser
-WORKDIR /home/devuser
 
+WORKDIR /home/devuser
 RUN git clone git://github.com/yyuu/pyenv.git .pyenv
 
 ENV HOME  /home/devuser
@@ -154,6 +154,9 @@ RUN pyenv rehash
 
 RUN git clone https://github.com/pyenv/pyenv-virtualenv.git $(pyenv root)/plugins/pyenv-virtualenv
 
+RUN echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+RUN echo 'eval "$(pyenv virtualenv-init -)"' >> ~/.bashrc
+
 USER root
 
 RUN apt-get update \
@@ -161,7 +164,6 @@ RUN apt-get update \
     && pip3 install --upgrade pip \
     && pip3 install --upgrade virtualenv
 
-USER root
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
