@@ -15,7 +15,6 @@ COPY ./ssh_keys/. $SSH_KEY_DIR/
 
 RUN if [ -f $SSH_KEY_DIR/* ]; then \
     chmod 600 $SSH_KEY_DIR/* \
-    && chmod 644 $SSH_KEY_DIR/*.pub \
 ;fi
 
 WORKDIR /var/www

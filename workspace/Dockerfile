@@ -159,25 +159,6 @@ RUN apt-get update \
     && pip3 install --upgrade pip \
     && pip3 install --upgrade virtualenv
 
-# AWS
-
-RUN pip install --upgrade --no-cache-dir awsebcli awscli
-RUN apt-get -yqq update && apt-get -yqq install git-all
-
-
-ARG SSH_KEYS=/root/.ssh
-ENV SSH_KEY_DIR ${SSH_KEYS}
-
-
-COPY ./ssh_keys/. $SSH_KEY_DIR/
-
-RUN if [ -f $SSH_KEY_DIR/* ]; then \
-    chmod 600 $SSH_KEY_DIR/* \
-    && chmod 644 $SSH_KEY_DIR/*.pub \
-;fi
-
-# END AWS
-
 RUN apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
