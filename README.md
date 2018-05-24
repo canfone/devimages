@@ -12,3 +12,7 @@ cp env.sample .env
 ```
 sudo docker-compose up -d nginx
 ```
+
+# License
+
+Copyright (c) 2017 Cliff Richard Anfone. Released under the terms of the MIT license.
