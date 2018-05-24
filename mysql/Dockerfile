@@ -1,4 +1,5 @@
-FROM mysql:latest
+ARG MYSQL_VERSION=latest
+FROM mysql:${MYSQL_VERSION}
 
 LABEL maintainer="Cliff Richard Anfone <anfone.cliff@gmail.com>"
 
