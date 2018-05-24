@@ -37,12 +37,14 @@ services:
       - backend
 
   nginx:
-    build: ./nginx
+    build:
+      context: ./nginx
     volumes_from:
       - applications
     volumes:
       - ./logs/nginx:/var/log/nginx
       - ./nginx/sites/:/etc/nginx/sites-available
+      - ./nginx/ssl_keys/:/etc/nginx/ssl
     ports:
       - 80:80
       - 443:443
@@ -86,10 +88,10 @@ services:
   aws:
     build:
       context: ./aws
-      args:
-        - SSH_KEYS=${SSH_KEYS}
     volumes_from:
       - applications
+    volumes:
+      - ./aws/ssh_keys/:/root/.ssh
     depends_on:
       - workspace
     tty: true
