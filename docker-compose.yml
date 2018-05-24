@@ -86,6 +86,8 @@ services:
   aws:
     build:
       context: ./aws
+      args:
+        - SSH_KEYS=${SSH_KEYS}
     volumes_from:
       - applications
     depends_on:
